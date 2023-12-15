@@ -295,6 +295,13 @@ class NeMoModelCheckpoint(ModelCheckpoint):
         else:
             super()._save_checkpoint(trainer, filepath)
 
+    def _link_checkpoint(self, trainer: "pytorch_lightning.Trainer", filepath: str, linkpath: str) -> None:
+        if self._is_ema_filepath(filepath):
+            super()._link_checkpoint(trainer, filepath, self._ema_format_filepath(linkpath))
+            super()._link_checkpoint(trainer, filepath.replace(f'-EMA{self.FILE_EXTENSION}', self.FILE_EXTENSION), linkpath)
+        else:
+            super()._link_checkpoint(trainer, filepath, linkpath)
+
     def _remove_checkpoint(self, trainer: "pytorch_lightning.Trainer", filepath: str) -> None:
         super()._remove_checkpoint(trainer, filepath)
         ema_callback = self._ema_callback(trainer)
