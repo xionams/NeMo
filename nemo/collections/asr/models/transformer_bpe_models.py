@@ -17,7 +17,7 @@ import json
 import os
 import tempfile
 from math import ceil
-from typing import Dict, List, Optional, Union, Any
+from typing import Any, Dict, List, Optional, Union
 
 import editdistance
 import torch
@@ -32,8 +32,8 @@ from nemo.collections.asr.data.audio_to_text_lhotse import LhotseSpeechToTextBpe
 from nemo.collections.asr.models.asr_model import ASRModel, ExportableEncDecModel
 from nemo.collections.asr.parts.mixins import ASRBPEMixin, ASRTranscriptionMixin, TranscribeConfig
 from nemo.collections.asr.parts.utils.audio_utils import ChannelSelectorType
-from nemo.collections.common.data.lhotse import get_lhotse_dataloader_from_config
 from nemo.collections.asr.parts.utils.rnnt_utils import Hypothesis, NBestHypotheses
+from nemo.collections.common.data.lhotse import get_lhotse_dataloader_from_config
 from nemo.collections.common.losses import SmoothedCrossEntropyLoss
 from nemo.collections.common.metrics import GlobalAverageLossMetric
 from nemo.collections.common.parts import transformer_weights_init
