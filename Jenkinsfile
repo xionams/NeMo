@@ -388,6 +388,24 @@ pipeline {
       }
       failFast true
       parallel {
+        stage('Mixtral') {
+          steps {
+            sh 'CUDA_VISIBLE_DEVICES=0 python scripts/nlp_language_modeling/convert_hf_mixtral_to_nemo.py \
+            --in-file=/home/TestData/nlp/megatron_mixtral \
+            --out-file=/home/TestData/nlp/megatron_mixtral/ci.nemo \
+            --precision=16'
+            sh 'rm -f /home/TestData/nlp/megatron_mixtral/ci.nemo'
+          }
+        }
+         stage('Mistral') {
+          steps {
+            sh 'CUDA_VISIBLE_DEVICES=0 python scripts/nlp_language_modeling/convert_hf_mistral_7b_to_nemo.py \
+            --in-file=/home/TestData/nlp/megatron_mistral \
+            --out-file=/home/TestData/nlp/megatron_mistral/ci.nemo \
+            --precision=16'
+            sh 'rm -f /home/TestData/nlp/megatron_mistral/ci.nemo'
+          }
+        }
         stage('Llama') {
           steps {
             sh 'CUDA_VISIBLE_DEVICES=0 python scripts/nlp_language_modeling/convert_hf_llama_to_nemo.py \
