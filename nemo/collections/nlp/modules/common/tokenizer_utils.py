@@ -173,7 +173,11 @@ def get_nmt_tokenizer(
     if (library != 'byte-level') and (
         model_name is None and (tokenizer_model is None or not os.path.isfile(tokenizer_model))
     ):
-        raise ValueError("No Tokenizer path provided or file does not exist!")
+        if tokenizer_model is None:
+            error_message = "No Tokenizer path provided!"
+        else:
+            error_message = f"Tokenizer path ({tokenizer_model}) does not exist!"
+        raise ValueError(error_message)
 
     if library == 'yttm':
         logging.info(f'Getting YouTokenToMeTokenizer with model: {tokenizer_model} with r2l: {r2l}.')
