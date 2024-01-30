@@ -81,6 +81,7 @@ def load_model(cls, checkpoint, strict, **kwargs):
 
             # register the artifacts
             cfg = checkpoint[cls.CHECKPOINT_HYPER_PARAMS_KEY]
+            assert os.path.exists(cfg.tokenizer.model), f"Expected cfg.tokenizer.model {cfg.tokenizer.model} to be present"
             if cfg.tokenizer.model is not None:
                 model.register_artifact("tokenizer.tokenizer_model", cfg.tokenizer.model)
             if cfg.tokenizer.vocab_file is not None:
