@@ -54,6 +54,7 @@ except (ImportError, ModuleNotFoundError):
 
 try:
     from megatron.core import ModelParallelConfig, parallel_state
+    from megatron.core.transformer.transformer_config import TransformerConfig
 
     HAVE_MEGATRON_CORE = True
 
